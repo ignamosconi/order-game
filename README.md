@@ -1,16 +1,45 @@
-# React + Vite
+# ASCEND
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Completá la grilla en orden ascendente. Sin espacio para errores.
 
-Currently, two official plugins are available:
+![alt text](image-1.png)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## Cómo se juega
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Cada turno se genera un número aleatorio entre 1 y 999. Tu objetivo es arrastrarlo a uno de los 20 casilleros disponibles, de forma que la grilla quede ordenada de menor a mayor de arriba a abajo.
 
-## Expanding the Oxlint configuration
+- ✅ Podés colocar el número en cualquier casillero vacío, siempre que todos los números anteriores sean menores y todos los posteriores sean mayores.
+- 💀 Si se genera un número que no puede colocarse en ningún casillero disponible, perdés.
+- 🏆 Si lográs llenar los 20 casilleros, ganás.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+---
+
+## Stack
+
+- React + Vite
+- [@dnd-kit](https://dndkit.com/) para el drag & drop (compatible con mouse y pantalla táctil)
+- CSS puro
+- Desplegado en Vercel
+
+---
+
+## Correrlo localmente
+
+```bash
+git clone https://github.com/ignamosconi/order-game
+cd order-game
+npm install
+npm run dev
+```
+
+Abrí `http://localhost:5173` en el navegador.
+
+Para acceder desde el celular en la misma red:
+
+```bash
+npm run dev -- --host
+```
+
+Y abrí la URL de `Network` que aparece en la terminal.
