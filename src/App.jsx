@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { DndContext, DragOverlay, useSensor, useSensors, PointerSensor, TouchSensor } from "@dnd-kit/core";
 import "./App.css";
+import colors from "./colors";
 import Board from "./components/Board";
 import Card from "./components/Card";
 import WinScreen from "./components/WinScreen";
@@ -17,6 +18,7 @@ function App() {
         })
     );
 
+    //ESTADOS
     const [numero, setNumero] = useState(generarNumero());
     const [board, setBoard] = useState(Array(20).fill(null));
     const [dragging, setDragging] = useState(false);
@@ -29,6 +31,13 @@ function App() {
     const [win, setWin] = useState(true);
     const [mostrarBotonOtra, setMostrarBotonOtra] = useState(true);
 
+    //Colores
+    const [colorIndex, setColorIndex] = useState(0);
+    const [colorActual, setColorActual] = useState(colors[0]);
+    const [coloresTablero, setColoresTablero] = useState(Array(20).fill(null));
+
+
+    //FUNCIONES
     function handleDragStart() {
         setDragging(true);
         setColocado(false);
@@ -40,9 +49,15 @@ function App() {
         const posicion = event.over.id - 1;
         if (!puedeColocar(board, posicion, numero)) return;
         setColocado(true);
+
         const nuevoTablero = [...board];
         nuevoTablero[posicion] = numero;
         setBoard(nuevoTablero);
+
+        const nuevosColores = [...coloresTablero];
+        nuevosColores[posicion] = colorActual;
+        setColoresTablero(nuevosColores);
+
         if (checkWin(nuevoTablero)) {
             setWin(true);
             setTimeout(() => setMostrarBotonOtra(true), 300);
@@ -59,6 +74,9 @@ function App() {
                 return;
             }
             setNumero(siguiente);
+            const nuevoIndex = (colorIndex + 1) % colors.length;
+            setColorIndex(nuevoIndex);
+            setColorActual(colors[nuevoIndex]);
         }, 50);
         setTimeout(() => {
             setSaliendo(false);
@@ -76,6 +94,9 @@ function App() {
         setColocado(false);
         setNumeroSinLugar(null);
         setMostrarBotonOtra(false);
+        setColoresTablero(Array(20).fill(null));
+        setColorIndex(0);
+        setColorActual(colors[0]);
     }
 
     return (
@@ -84,13 +105,11 @@ function App() {
                 <h1>ASCEND</h1>
                 <p className="subtitle">
                     Completá la grilla en orden ascendente.
-                    <br />
-                    No hay espacio para errores.
                 </p>
 
                 <div className="cardSlot">
                     {!dragging && !saliendo && !gameOver && !win && (
-                        <Card key={numero} numero={numero} />
+                        <Card key={numero} numero={numero} color={colorActual} />
                     )}
                     {mostrarBotonOtra && (
                         <button className="retryBtn retryBtnSlot" onClick={retry}>
@@ -98,9 +117,9 @@ function App() {
                         </button>
                     )}
                 </div>
-                <Board board={board} />
+                <Board board={board} colores={coloresTablero} />
                 <DragOverlay dropAnimation={null}>
-                    {dragging && <Card numero={numero} dragging={true} />}
+                    {dragging && <Card numero={numero} dragging={true} color={colorActual} />}
                 </DragOverlay>
                 {win && <WinScreen board={board} onRetry={retry} />}
                 {gameOver && <GameOver numero={numeroSinLugar} onRetry={retry} />}

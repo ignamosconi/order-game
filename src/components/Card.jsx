@@ -1,8 +1,7 @@
 import { useDraggable } from "@dnd-kit/core";
 
-function Card({ numero, dragging }) {
+function Card({ numero, dragging, color }) {
     const { attributes, listeners, setNodeRef } = useDraggable({ id: "card" });
-
     const className = dragging ? "card card-small" : "card";
 
     return (
@@ -11,6 +10,7 @@ function Card({ numero, dragging }) {
             {...listeners}
             {...attributes}
             className={className}
+            style={{ background: color }}
         >
             {numero}
         </div>
