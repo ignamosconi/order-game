@@ -10,7 +10,8 @@ function GameOver({ numero }) {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
-        const drops = Array.from({ length: 200 }, () => ({
+        const cantGotas = window.innerWidth < 640 ? 40 : 200;
+        const drops = Array.from({ length: cantGotas }, () => ({
             x: Math.random() * canvas.width,
             y: Math.random() * canvas.height,
             length: Math.random() * 30 + 15,

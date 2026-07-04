@@ -29,13 +29,10 @@ margin-bottom:10px;
 }
 
 .subtitle{
-
-font-size:24px;
-
-margin-bottom:40px;
-
-font-weight:bold;
-
+    font-size:24px;
+    margin-bottom:40px;
+    font-weight:bold;
+    text-align: center;
 }
 
 
@@ -66,6 +63,7 @@ font-weight:bold;
 }
 
 .card {
+    touch-action: none;
     width: 220px;
     height: 120px;
     background: #ffe95e;
@@ -217,7 +215,7 @@ font-weight:bold;
 .retryBtn {
     margin-top: 12px;
     padding: 14px 32px;
-    font-family: "Comic Neue", cursive;
+    font-family: "Fredoka One", cursive;
     font-size: 22px;
     font-weight: bold;
     background: white;
@@ -243,4 +241,73 @@ font-weight:bold;
     height: 120px;
     font-size: 36px;
     margin: 0;
+}
+
+/* responsive — todo escala con una variable CSS */
+@media (max-width: 640px) {
+    .app {
+        padding: 24px 12px;
+    }
+
+    h1 {
+        font-size: 36px;
+    }
+
+    .subtitle {
+        font-size: 15px;
+        margin-bottom: 24px;
+        text-align: center;
+    }
+
+    .board {
+        grid-template-columns: repeat(5, 1fr);
+        gap: 8px;
+        width: 100%;
+        max-width: 420px;
+    }
+
+    .cell {
+        width: 100%;
+        height: 70px;
+    }
+
+    .cellNumber {
+        font-size: 22px;
+    }
+
+    .cellPosition {
+        font-size: 13px;
+        padding: 3px;
+    }
+
+    .card {
+        width: 160px;
+        height: 90px;
+        font-size: 44px;
+    }
+
+    .cardSlot {
+        width: 160px;
+        height: 90px;
+        margin-bottom: 24px;
+    }
+
+    .retryBtnSlot {
+        width: 160px;
+        height: 90px;
+        font-size: 28px;
+    }
+
+    .overlayCard {
+        padding: 32px 28px;
+        max-width: 300px;
+    }
+
+    .overlayTitle {
+        font-size: 36px;
+    }
+
+    .overlayText {
+        font-size: 16px;
+    }
 }
