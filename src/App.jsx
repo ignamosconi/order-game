@@ -29,8 +29,8 @@ function App() {
     const [colocado, setColocado] = useState(false);
 
     //Poner ambos en true para testear pantalla de victoria
-    const [win, setWin] = useState(true);
-    const [mostrarBotonOtra, setMostrarBotonOtra] = useState(true);
+    const [win, setWin] = useState(false);
+    const [mostrarBotonOtra, setMostrarBotonOtra] = useState(false);
 
     //Colores
     const [colorIndex, setColorIndex] = useState(0);
