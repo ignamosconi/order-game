@@ -65,9 +65,10 @@ h1{
     cursor: grab;
 }
 
-.card:hover {
+.card-small {
     transform: rotate(-3deg) scale(1.05);
 }
+
 
 .board{
     display:grid;

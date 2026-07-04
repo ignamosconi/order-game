@@ -11,6 +11,7 @@ function Card({ numero, dragging, color }) {
             {...attributes}
             className={className}
             style={{ background: color }}
+            tabIndex={0}
         >
             {numero}
         </div>
