@@ -6,7 +6,7 @@ import { DndContext, DragOverlay } from "@dnd-kit/core";
 import Board from "./components/Board";
 import Card from "./components/Card";
 
-import { generarNumero } from "./game";
+import { generarNumero, hayLugarParaNumero, checkWin, puedeColocar } from "./game";
 
 
 
@@ -17,26 +17,33 @@ function App(){
     const [board,setBoard]=useState( Array(20).fill(null) );
     const [dragging,setDragging]=useState(false);
 
+    const [gameOver, setGameOver] = useState(false);
+    const [win, setWin] = useState(false);
+
     //FUNCIONES
     function handleDragStart(){
         setDragging(true);
     }
 
-    function handleDragEnd(event){
+    function handleDragEnd(event) {
         setDragging(false);
+        if (!event.over || gameOver || win) return;
 
-        if(!event.over){ return }
+        const posicion = event.over.id - 1;
 
-        const posicion=event.over.id-1;
-        if(board[posicion] != null){
-            return;
-        }
-        
+        // ← NUEVO: rechazar si la celda está ocupada O el número no encaja
+        if (!puedeColocar(board, posicion, numero)) return;
+
         const nuevoTablero = [...board];
         nuevoTablero[posicion] = numero;
         setBoard(nuevoTablero);
 
-        setNumero(generarNumero());
+        if (checkWin(nuevoTablero)) { setWin(true); return; }
+
+        const siguiente = generarNumero();
+        if (!hayLugarParaNumero(nuevoTablero, siguiente)) { setGameOver(true); return; }
+
+        setNumero(siguiente);
     }
 
     return(
@@ -50,10 +57,9 @@ function App(){
                     Arrastrá el número hacia una casilla.
                 </p>
 
-                {
-                    numero != null && !dragging &&
-                    <Card numero={numero} />
-                }
+                <div className="cardSlot">
+                    {numero != null && !dragging && <Card numero={numero} />}
+                </div>
 
                 <Board
                     board={board}

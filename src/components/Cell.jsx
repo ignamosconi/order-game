@@ -1,41 +1,21 @@
-//Cell.jsx
 import colors from "../colors";
 import {useDroppable} from "@dnd-kit/core";
 
-function Cell({posicion,valor}){
+function Cell({posicion, valor}){
+    const { setNodeRef } = useDroppable({ id: posicion });
 
-    const { 
-        setNodeRef
-    }=useDroppable({
-        id:posicion
-    });
-
-    let color="#d9d9d9";
-
-    if(valor!=null){
-
-        color=colors[posicion%colors.length];
-
-    }
+    const colorFondo = valor != null ? colors[posicion % colors.length] : "#d9d9d9";
 
     return(
-
-        <div ref={setNodeRef} className="cell" style={{ background:color }} >
-            {
-                valor!=null &&
-                <div className="cellNumber">
-                    {valor}
-                </div>
-            }
-
+        <div ref={setNodeRef} className="cell">
+            <div className="cellNumber" style={{ background: colorFondo }}>
+                {valor != null ? valor : ""}
+            </div>
             <div className="cellPosition">
                 {posicion}
             </div>
-
         </div>
-
     );
-
 }
 
 export default Cell;
