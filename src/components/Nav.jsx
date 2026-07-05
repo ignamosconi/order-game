@@ -44,7 +44,7 @@ function Nav() {
                         </div>
                         <p className="popupDesc">
                             <a href="https://www.ignamosconi.com.ar/" target="_blank" rel="noopener noreferrer">
-                                https://www.ignamosconi.com.ar/
+                                www.ignamosconi.com.ar
                             </a>
                         </p>
                         <div className="popupSocial">
